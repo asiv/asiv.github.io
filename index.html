@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- when using the mode "code", it's important to specify charset utf-8 -->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="dist/jsoneditor.min.js"></script>
+
+    <script src="https://bgrins.github.io/filereader.js/filereader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+</head>
+<body>
+    <p hidden>
+        Load another JSON document: <input type="file" id="loadDocument" value="Load"/>
+    </p>
+
+    <div id="jsoneditor" style="width: 80%; height: 400px;"></div>
+
+    <script>
+        // create the editor
+        var container = document.getElementById("jsoneditor");
+        var options = {mode:'view'};
+        var editor = new JSONEditor(container, options);
+
+        // Get JSON file
+        //var oReq = new XMLHttpRequest();
+        //oReq.addEvetListener("load", reqListener);
+        //oReq.open("GET", "/Trial.json");
+        //oReq.send();
+
+        // Load a JSON document
+        FileReaderJS.setupInput(document.getElementById('loadDocument'), {
+            readAsDefault: 'Text',
+            on: {
+                load: function (event, file) {
+                    editor.setText(event.target.result);
+                }
+            }
+        });
+
+        // set json
+        var json = {"I know what I am looking for":{"Question":"Are you looking at result from students or qeustions regarding curriculum?","Student":{"Question":"Are you looking at student data over time or a cross section at a time?","Looking at the same student/set of students over time. ":{"Did [attribute X] change from the beginning to the end of my course? (9468)":{},"Have students improved at a certain outcome? (2334)":{},"Are groups working better together over time (based on peer reviews)? (2334)":{},"Comparing student learning to before summer. ":{},"Is there an improvement in student results between assessments? (2334)":{},"How has the university/department changed since the last benchmark? (7711)":{},"How are students rating other students or being rated over time? (3333)":{}},"Looking at this particular time slice":{"Question":"Here are some specific needs or topics you might be interested in:","Topic: Individual Students":{"How does this course fit into a student's planned academic career? (3119)":{},"How do my personal perceptions vary from my team mates? (2334)":{},"Is there any incongruence between how students do on one assessment versus another? (6519)":{},"How am I (as a student) doing versus how others (group members) perceive how I am doing? (2334)":{},"Putting self-assessment next to peer-assessment.  (3333)":{}},"Topic: Student Teams":{"Which individual in a team needs help? (2334)":{},"How similarly do team-members see each other?  (3333)":{},"Which teams are the trouble teams?  (3333)":{},"Which teams might have interpersonal issues? ":{},"Are there cliques within a team?  (3333)":{}},"Topic: Comparing Student Groups":{"How are students from other departments doing compared to ours? ":{},"How are students from other departments doing in courses we are offering?":{},"For a mixed (from different programs) class, does the class performance indicate how well students from one program are doing? (4938)":{}},"Topic: Correlation?":{"How does a student being in band X [of e.g. DELNA] affect their performance in their other coursework?  (3333)":{},"Topic: Forecasting":{"What students might need help based on previous years’ data? (7928)":{},"Do quiz marks predict success at similar questions on final exams? (9468) (7928)":{}},"How does attendance to a specific class affect performance on assessments? ":{},"How does student attendance relate to assessment performance? (0000)":{},"What is the relationship between being in a group X and a student’s coursework? ":{}},"How did students do in the previous course (in a follow-on stream)? (2334)":{},"How many students don’t meet a threshold? (9468)":{},"How many students are achieving X in my course? (7928)":{},"Why did students come or not come to our university? (7711)":{}}},"Curriculum":{"Question":"Does your question looking at the course or program level?","Course Level":{"When are questions mapped to more than one outcome? ":{},"What instructional method is more effective? ":{},"How many hours will students need to complete everything for a course in a given week? (7928)":{},"Are we assessing [X component] properly? (9468)":{},"Are we teaching and assessing what we think we are? (9468)":{}},"Program Level":{"Question":"Are you looking at how your program progresses or the whole program?","Program Progression":{"Is our instruction moving from an introductory level to an advanced level? (4938)":{},"How are courses related to one another? (3119)":{},"How is learning (beginner, intermediate, advanced, ICE, etc.) scaffolded across the program? ":{},"When were helpful post-graduate skills addressed in a program? (3119)":{},"What are the pathways between courses? (3119)":{}},"Entire Program":{"What program level outcomes are most emphasized or least emphasized? ":{},"What are the redundancies in a program? ":{},"How is the curriculum structured? ":{},"Are we teaching and assessing what we think we are? (9468)":{}}},"Either Course or Program Level":{"Where are the gaps in our learning outcomes? (9468)":{},"Where are instructors assessing students? (4938)":{},"Do our assessments map well onto outcomes? (9468)":{}}},"Other Questions":{"Is this student peer review data trustworthy? (3333)":{},"Are you just trying to complete the survey or are you giving real feedback? (3333)":{},"Are students providing honest feedback or just giving their friends marks? (2334)":{},"Are two questions asking the same thing? (3333)":{}},"Bad Questions":{"What are the repeatedly raised comments from students in surveys? (7928)":{},"Are students that need support being supported? (5601)":{},"Are student skills evenly dispersed in a group? (2334)":{}}}};
+        editor.set(json);
+
+        // get json
+        var json = editor.get();
+    </script>
+
+    <p>This was made as part of a Queen's University research project by Ajay Sivanand. It was made using <a href="https://github.com/josdejong/jsoneditor/">JSON Editor</a> by <a href="https://github.com/josdejong">Jos de Jong</a>.</p>
+
+</body>
+</html>
