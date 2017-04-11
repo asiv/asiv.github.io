@@ -10,6 +10,11 @@
 
     <script src="https://bgrins.github.io/filereader.js/filereader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+    <style>
+        .hover_img a { position:relative; }
+        .hover_img a span { position:absolute; display:none; z-index:99; }
+        .hover_img a:hover span { display:block; }
+    </style>
 </head>
 <body>
     <p hidden>
@@ -50,6 +55,11 @@
         // get json
         var json = editor.get();
     </script>
+    <p>Hover over for visualization examples:</p>
+    <div class="hover_img">
+        <a href="#">Example 1<span><img src="VisEx/1.png" alt="image" width="1000" /></span></a> <a href="#">Example 2<span><img src="VisEx/2.png" alt="image" width="1000" /></span></a> <a href="#">Example 3<span><img src="VisEx/3.png" alt="image" width="1000" /></span></a> <a href="#">Example 4<span><img src="VisEx/4.png" alt="image" width="1000" /></span></a> <a href="#">Example 5<span><img src="VisEx/5.png" alt="image" width="1000" /></span></a> <a href="#">Example 6<span><img src="VisEx/6.png" alt="image" width="1000" /></span></a>
+    </div>
+
 <p>
     There are three main purposes for visualizations we have found that we have categorized each recommendation into: <br/>
     <b>Communication</b>: To present information in either a presentation or report. Clearly emphasizing information, with less need for explanation.<br/>
