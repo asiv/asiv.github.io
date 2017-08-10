@@ -15,13 +15,16 @@
     <p hidden>
         Load another JSON document: <input type="file" id="loadDocument" value="Load"/>
     </p>
+    <p>
+        Save a JSON document: <input type="button" id="saveDocument" value="Save" />
+    </p>
 
-    <div id="jsoneditor" style="width: 80%; height: 800px;"></div>
+    <div id="jsoneditor" style="width: 80%; height: 700px;"></div>
 
     <script>
         // create the editor
         var container = document.getElementById("jsoneditor");
-        var options = {mode:'view'};
+        var options = {mode:'tree'};
         var editor = new JSONEditor(container, options);
 
         // Get JSON file
@@ -39,6 +42,24 @@
                 }
             }
         });
+        // Save a JSON document
+        document.getElementById('saveDocument').onclick = function () {
+          // Save Dialog
+          fname = window.prompt("Save as...");
+          
+          // Check json extension in file name
+          if(fname.indexOf(".")==-1){
+            fname = fname + ".json";
+          }else{
+            if(fname.split('.').pop().toLowerCase() == "json"){
+              // Nothing to do
+            }else{
+              fname = fname.split('.')[0] + ".json";
+            }
+          } 
+          var blob = new Blob([editor.getText()], {type: 'application/json;charset=utf-8'});
+          saveAs(blob, fname);
+        };        
 
         // set json
         var json = {
