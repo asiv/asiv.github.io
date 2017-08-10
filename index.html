@@ -3,28 +3,20 @@
 <head>
     <!-- when using the mode "code", it's important to specify charset utf-8 -->
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>Educational Visualization Toolkit Alpha Version</title>
+    <title>Easel: Visualization Recommendation System Question Bank</title>
 
     <link href="dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
     <script src="dist/jsoneditor.min.js"></script>
 
     <script src="https://bgrins.github.io/filereader.js/filereader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
-    <style>
-        .hover_img a { position:relative; }
-        .hover_img a span { position:absolute; display:none; z-index:99; }
-        .hover_img a:hover span { display:block; }
-    </style>
 </head>
 <body>
     <p hidden>
-        Load a JSON document: <input type="file" id="loadDocument" value="Load"/>
-    </p>
-    <p>
-        This toolkit is meant to recommend a visualization based on your data-need. Currently, not all data-needs have accompanying visualizations. This is still a work in progress. The final toolkit will also include snippets of R code to help with visualizing the data. 
+        Load another JSON document: <input type="file" id="loadDocument" value="Load"/>
     </p>
 
-    <div id="jsoneditor" style="width: 80%; height: 400px;"></div>
+    <div id="jsoneditor" style="width: 80%; height: 800px;"></div>
 
     <script>
         // create the editor
@@ -49,24 +41,230 @@
         });
 
         // set json
-        var json = {"Expand this:":{"Question":"Are you looking at result from students or qeustions regarding curriculum?","Student":{"Question":"Are you looking at student data over time or a cross section at a time?","Looking at the same student/set of students over time. ":{"Is there an improvement in student results between assessments? ":{"Data Required":"Results from various assessments over a course, student IDs","Visualization A":"Communication: Difference Bar Chart (Example 4) - Shows positive or negative change for average of each attribute.  ","Visualization B":"Exploration: Layered Histogram - Histogram of current results layered over previous. "},"Have students in [X] improved at a certain outcome? ":{"Descriptor 1":"A: By testing it more than once.","Data Required":"Results from various assessments over a course, student IDs","Visualization A":"Communication: Difference Bar Chart (Example 4) - Shows positive or negative change for each attribute.  "},"Comparing student learning to before summer. ":{"Data Required":"Student assessment results from previous course; results from diagnostic assessment","Visualization A":"Exploration: Difference Bar Chart (Example 4) - Shows positive or negative change for each attribute.  "},"How are students rating other students or being rated over time? ":{"Data Required":"Student group peer-assessment data from before; and now ","Visualization A":"Exploration: TBD"},"How has the university/department changed since the last benchmark? ":{"Data Required":"Benchmark results then and now, over any number of attributes","Visualization A":"Communication: Column Chart (Example 1) - One set of columns for each attribute, with one bar for previous benchmark and one for current.  ","Visualization B":"Exploration: Difference Bar Chart (Example 4) - Shows positive or negative change for each attribute.  "},"Did [attribute X] change from the beginning to the end of my course? ":{"Data Required":"Student assessment results divided by attribute/learning outcome at start of course, at end of course","Visualization A":"Communication/Exploration: Column Chart (Example 1) - One set of columns for each attribute, with on bar for beginning and one for end. "},"Are groups working better together over time (based on peer reviews)? ":{"Data Required":"Student group peer-assessment data from before; and now ","Visualization A":"Exploration: TBD"}},"Looking at this particular time slice":{"Question":"Here are some topics and specific needs you might be interested in:","Topic: Student Teams":{"Are there cliques within a team?  ":{"Data Required":"Student group peer-assessment results","Visualization A":"Exploration: Sociogram - Each student is shown as a circle connected by lines. Thickness of line is how highly they rated each other."},"Which teams are the trouble teams?  ":{"Data Required":"Student group peer-assessment results","Visualization A":"Exploration: TBD"},"Which teams might have interpersonal issues? ":{"Data Required":"Student group peer-assessment results","Visualization A":"Exploration: Bar Chart (Example 4) - Each group is a bar, with the length determined by how similarly the group members rated each other. "},"How similarly do team-members see each other?  ":{"Data Required":"Student group peer-assessment results","Visualization A":"Exploration: TBD"},"Which individual in a team needs help? ":{"Data Required":"Student group peer-assessment results","Visualization A":"Exploration: Sociogram - Each student is shown as a circle connected by lines. Thickness of line is how highly they rated each other."}},"Topic: Comparing Student Groups":{"How are students from other departments doing compared to ours? ":{"Data Required":"Student assessment reuslts; student degree information","Visualization A":"Exploration: Column Chart (Example 1) - Each set of bar representing a course, with one bar being home department average and the other being specific department average. "},"How are students from other departments doing in courses we are offering?":{"Data Required":"Student assessment reuslts; student degree information","Visualization A":"Communication/Exploration: Layered Histogram - Students from the group are layered on top of the rest of the class's histogram. ","Visualization B":"Exploration: Column Chart (Example 1) - Each set of bar representing a course, with one bar being class average and the other being specific department average. "}},"Topic: Relationships":{"Topic: Forecasting":{"What students might need help based on previous years’ data? ":{"Descriptor 1":"Based on behavrioural patterns of current and previous students.","Data Required":"Previous year's student assessment results; behavioural data","Visualization A":"Exploration: TBD"}},"Do quiz marks predict success at similar questions on final exams?  ":{"Data Required":"Student assessment results; student exam results; question to assessment outcome mapping","Visualization A":"Exploration: TBD"},"How does attendance to a specific class affect performance on assessments? ":{"Data Required":"Attendance/Clicker data and Assessments Grades","Visualization A":"Exploration: Heat map (Example 2) - Assessments vs. lectures, with the heat of a cell depends on the average of the subset of students who attended that lecture. "},"How does a student being in band X [of e.g. DELNA] affect their performance in their other coursework?  ":{"Data Required":"Student assessment results; diagnostic test results; student IDs","Visualization A":"Communication/Exploration: Layered Histogram - Students from the group are layered on top of the rest of the class's histogram. "},"What is the relationship between being in a group X and a student’s coursework? ":{"Data Required":"Student assessment results; diagnostic test results; student IDs","Visualization A":"Communication/Exploration: Layered Histogram - Students from the group are layered on top of the rest of the class's histogram. "},"How does student attendance relate to assessment performance? ":{"Data Required":"Attendance/Clicker data and Assessment Grades","Visualization A":"Exploration: Scatter Plot - Lecture attendance vs. assessment mark, each student being a data point. "}},"Topic: Individual Students":{"How does this course fit into a student's planned academic career? ":{"Data Required":"Students' current program","Visualization A":"Exploration: Waffle Chart - See what portion of your students are enrolled in various programs. "},"Is there any incongruence between how a student do on one assessment method versus another? ":{"Descriptor 1":"Use them as flags for learning disabilities or mental illness. ","Data Required":"Student assessment results","Visualization A":"Exploration: TBD"},"How am I (as a student) doing versus how others (group members) perceive how I am doing? ":{"Data Required":"Student group peer-assessment results","Visualization A":"Exploration: Spider Diagram - Students' own results drawn over average of group's assessment of them in various attributes."},"How do my personal perceptions vary from my team mates? ":{"Data Required":"Student group peer-assessment results","Visualization A":"Exploration: Spider Diagram - Students' own results drawn over average of group's assessment of them in various attributes."}},"How many students are achieving X in my course? ":{"Descriptor 1":"Badges from LMS: getting certain grades or behaviours like discussion participation).","Data Required":"Student assessment results of various types","Visualization A":"Exploration: Badges - Student list with badges associated with programmed achievements. "},"How many students don’t meet a threshold? ":{"Data Required":"Student grades or assessment results","Visualization A":"Communication/Exploration: Interactive Waffle Chart - A number boxes representing studnents or a set of students with a slider to set the threshold","Visualization B":"Communication/Exploration: Histogram (Example 3) with accompanied waffle chart (Example 6) - Histogram to show dispersion above threshold, with bar charts to represent number of students in each category"},"How did students do in the previous course (in a follow-on stream)? ":{"Descriptor 1":"ie. How did students of Thermo II do in Thermo I?","Data Required":"Individual student assessment results from previous course; student IDs","Visualization A":"Exploration: Layered Histogram - Students enrolled in current course as a histogram over a histogram of all the students from a previous course. "}}},"Curriculum":{"Question":"Does your question looking at the course or program level?","Course Level":{"Are we teaching and assessing what we think we are? ":{"Data Required":"Learning outcomes taught in a program","Visualization A":"Discussion: Tree Map - Learning outcomes categorized by graduate attribute, sized by number of units it is taught in. "},"How many hours will students need to complete everything for a course in a given week? ":{"Descriptor 1":"To meet course or program targets","Data Required":"Learning time distributed by week","Visualization A":"Communication/Exploration: TBD"}},"Program Level":{"Question":"Are you looking at how your program progresses or the whole program?","Program Progression":{"When were helpful post-graduate skills addressed in a program? ":{"Data Required":"Alumni survey results; mapping of skills onto courses","Visualization A":"Exploration/Discussion: Heat map (Example 2) - Courses along the x-axis, arranged by semester of instruction and skills along the y-axis. "},"What are the pathways between courses? ":{"Data Required":"Course order and prerequisites","Visualization A":"Communication/Discussion: Curriculum Map - Map linking the courses with prerequisites, while courses are aligned by year they can be taken in"},"How is learning (beginner, intermediate, advanced, ICE, etc.) progressing across the program? ":{"Data Required":"Learning Outcomes mapped to courses; progression level; course structure","Visualization A":"Exploration/Discussion: Heat map (Example 2) - Courses along the x-axis, arranged by semester of instruction and outcomes along the y-axis coloured by progression level"},"How are courses related to one another? ":{"Data Required":"Course structure","Visualization A":"Discussion/Exploration: TBD"},"Is our instruction moving from an introductory level to an advanced level? ":{"Data Required":"Learning Outcomes mapped to courses; progression level; course structure","Visualization A":"Exploration/Discussion: Heat map (Example 2) - Courses along the x-axis, arranged by semester of instruction and outcomes along the y-axis coloured by progression level"}},"Entire Program":{"What program level outcomes are most emphasized or least emphasized? ":{"Data Required":"Learning outcomes taught in a program","Visualization A":"Exploration/Discussion: Tree Map (Example 5) - Learning outcomes categorized by graduate attribute, sized by number of units it is taught in. "},"Are we teaching and assessing what we think we are? ":{"Data Required":"Learning outcomes taught in a program","Visualization A":"Discussion: Tree Map (Example 5) - Learning outcomes categorized by graduate attribute, sized by number of units it is taught in. "},"How is the curriculum structured? ":{"Descriptor 1":"Q: What are the instructors ‘philosophies of what education should be’? ","Descriptor 2":"Or the job of the writing centre?","Descriptor 3":"Specifically, comparing it to criteria laid out by something like Quality Matters","Data Required":"Learning Outcomes mapped to courses; course structure","Visualization A":"Discussion: Curriculum Map - Mapping of where learning outcomes are taught in program"},"What are the redundancies in a program? ":{"Descriptor 1":"And is that redundancy okay? ","Data Required":"Learning Outcomes mapped to courses; course structure","Visualization A":"Disucssion: Column chart - Each set of bars denoting a year of a program, with each bar representing a particular attribute or outcome"}}},"Either Course or Program Level":{"Where are instructors assessing students? ":{"Data Required":"Learning Outcomes mapped to courses; course structure","Visualization A":"Exploration: Curriculum Map - Mapping of where learning outcomes are taught in program"},"Do our assessments map well onto outcomes? ":{"Data Required":"List of assessment methods in a course/program linked to learning outcomes","Visualization A":"Exploration: TBD"},"Where are the gaps in our learning outcomes? ":{"Data Required":"Learning outcomes intended for program; learning outcomes mapped to courses","Visualization A":"Discussion: TBD"}}}}};
+        var json = {
+  "Question": "Please choose an option you are here for:",
+  "I have a general question in mind that I would like to see visualized": {
+    "Question": "Are you looking at student assessment results or questions regarding curriculum?",
+    "Student Assessment Results": {
+      "Question": "Are you looking at a cross section at a particular time slice or student data over time?",
+      "Looking at the same student/set of students over time": {
+        "Are under-represented groups graduating at the same proportion as highly represented groups – in terms of graduation/time to completion/performance)?": "",
+        "How are student ratings for other students changing over time?": "",
+        "How are students performing between assessments?": "",
+        "How has the university/department changed since the last benchmark?": "",
+        "How is the class performing based on assessment results?": "",
+        "Identifying special students from a prior course.": "",
+        "Comparing class knowledge to a prior course.": "",
+        "How is my institution’s financial health and sustainability metrics changing over time?": "",
+        "How are students in a team being rated by team members over time?": "",
+        "Are students in group [X] improving between assessments?": ""
+      },
+      "Looking at a particular time slice": {
+        "Question": "Here are some specific needs or topics you might be interested in:",
+        "Topic: Individual Students": {
+          "How is a student doing in a course versus how other team members perceive they are doing?": "",
+          "How does a student's self-perception vary from their teammates view of them?": "",
+          "Is there any incongruence between how a student does on one assessment method versus another?": ""
+        },
+        "Topic: Forecasting": {
+          "Do quiz marks predict success to a similar question on the final exam?": ""
+        },
+        "Topic: Student Teams": {
+          "Are there cliques within a team?": "",
+          "Which teams are the trouble teams?": "",
+          "Are students in a team similar in a specific non-quantitative characteristic?": "",
+          "Which teams might have interpersonal issues?": "",
+          "Are students in a team similar in a specific quantitative characteristic?": "",
+          "How similarly do team-members see each other?": "",
+          "Which individual in a team needs help?": ""
+        },
+        "Topic: Comparing Groupings of Students": {
+          "What is the relationship between being in a non-mutually exclusive group X and a student’s assessment result?": "",
+          "How are students from other departments doing in courses we are offering?": "",
+          "Looking at Access and Opportunity": {
+            "What programs/disciplines have the largest population/proportion of students that are X ethnicity/gender/ESL/etc.": "",
+            "Does being in several underrepresented groups have more of an impact than just being in one?": "",
+            "Are under-represented groups completing their degree in the same time?": "",
+            "Are under-represented groups graduating at the same proportion as highly represented groups – in terms of graduation/time to completion/performance)?": "",
+            "What proportion of underrepresented groups are accepted to the program from those applying?": "",
+            "What are the typical selection of elective courses for students of a particular demographic group?": "",
+            "How does being in an underrepresented group impact performance?": ""
+          },
+          "What is the relationship between being in a mutually exclusive group X and a student’s assessment result?": "",
+          "How are students from other departments doing compared to ours?": ""
+        },
+        "Topic: Class attendance": {
+          "How does attendance to a specific class affect performance on an assessment?": "",
+          "How does a student's total attendance record relate to assessment performance?": ""
+        },
+        "What subset of students do I have from a pre-requisite course based on performance?": "",
+        "How many students don't meet a threshold?": "",
+        "Which students are achieving these set of criteria in my course?": ""
+      }
+    },
+    "Curriculum Focused": {
+      "Question": "Is your question looking at the course or program level?",
+      "Course Level": {
+        "How is this course categorized according to its students' respective academic plans? (Eg. Core/elective/etc.)": "",
+        "How many hours will students need to complete everything for a course in a given week?": ""
+      },
+      "Program Level": {
+        "Question": "Are you looking at how your program progresses or the whole program?",
+        "Program Progression": {
+          "What are the pathways between courses?": "",
+          "How is learning (beginner/intermediate/advanced/ICE/etc.) progressing across the program?": "",
+          "When were skills taught in an academic program?": "",
+          "Do professional skill taught in successive courses improve with each successive completion?": "",
+          "Is our instruction moving from an introductory level to an advanced level?": "",
+          "How are courses related to one another?": ""
+        },
+        "Entire Program": {
+          "What program level outcomes are most emphasized or least emphasized?": "",
+          "What programs/disciplines have the largest population/proportion of students that are X ethnicity/gender/ESL/etc.": "",
+          "What courses contribute to development for a particular skill?": "",
+          "What are the typical selection of elective courses for students of a particular demographic group?": "",
+          "What are the redundancies in a program?": "",
+          "Are we teaching and assessing what we think we are?": "",
+          "How is the curriculum structured?": ""
+        }
+      },
+      "Either Course or Program Level": {
+        "Do our assessments map well onto outcomes?": "",
+        "Where are the gaps in our learning outcomes?": "",
+        "Where are instructors assessing students?": ""
+      }
+    }
+  },
+  "I only have data and would like to see what I can do with": {
+    "Question": "Select the kind of data you have available:",
+    "Student results from a single assessment": {
+      "Question": "Do you have any other data to pair this with?",
+      "No. Just the assessment results": {
+        "How many students don't meet a threshold?": ""
+      },
+      "Student exam (or final assessment) results": {
+        "Do quiz marks predict success to a similar question on the final exam?": ""
+      },
+      "Student program information": {
+        "What programs/disciplines have the largest population/proportion of students that are X ethnicity/gender/ESL/etc.": "",
+        "How are students from other departments doing in courses we are offering?": "",
+        "What proportion of underrepresented groups are accepted to the program from those applying?": "",
+        "What are the typical selection of elective courses for students of a particular demographic group?": "",
+        "How does being in an underrepresented group impact performance?": "",
+        "How are students from other departments doing compared to ours?": ""
+      },
+      "Attendance or clicker data": {
+        "How does attendance to a specific class affect performance on an assessment?": "",
+        "How does a student's total attendance record relate to assessment performance?": ""
+      },
+      "Student demographic data": {
+        "What is the relationship between being in a non-mutually exclusive group X and a student’s assessment result?": "",
+        "Does being in several underrepresented groups have more of an impact than just being in one?": "",
+        "What is the relationship between being in a mutually exclusive group X and a student’s assessment result?": ""
+      }
+    },
+    "Student results from various assessments": {
+      "Are students in group [X] improving between assessments?": "",
+      "How are students performing between assessments?": "",
+      "How is the class performing based on assessment results?": "",
+      "Is there any incongruence between how a student does on one assessment method versus another?": "",
+      "Which students are achieving a certain set of criteria in my course?": ""
+    },
+    "Student program information": {
+      "Question": "Do you have any other data to pair this with?",
+      "No. Just the degree information": {
+        "How is this course categorized according to its students' respective academic plans? (Eg. Core/elective/etc.)": ""
+      },
+      "Student assessment results": {
+        "What programs/disciplines have the largest population/proportion of students that are X ethnicity/gender/ESL/etc.": "",
+        "How are students from other departments doing in courses we are offering?": "",
+        "What proportion of underrepresented groups are accepted to the program from those applying?": "",
+        "What are the typical selection of elective courses for students of a particular demographic group?": "",
+        "How does being in an underrepresented group impact performance?": "",
+        "How are students from other departments doing compared to ours?": ""
+      }
+    },
+    "Mapping of learning outcomes onto courses": {
+      "Question": "Do you have any other data to pair this with?",
+      "No. Just the mappings": {
+        "What program level outcomes are most emphasized or least emphasized?": ""
+      },
+      "Progression of learning outcomes": {
+        "How is learning (beginner/intermediate/advanced/ICE/etc.) progressing across the program?": ""
+      },
+      "Course Structure": {
+        "What are the redundancies in a program?": "",
+        "How is the curriculum structured?": ""
+      },
+      "Mapping of learning outcomes to skills": {
+        "When were skills taught in an academic program?": ""
+      },
+      "Intended learning outcomes for program": {
+        "Where are the gaps in our learning outcomes?": ""
+      }
+    },
+    "Student results from a previous course": {
+      "Question": "Do you have any other data to pair this with?",
+      "Results from diagnostic assessment in current course": {
+        "Identifying special students from a prior course.": "",
+        "Comparing class knowledge to a prior course.": ""
+      },
+      "Whether they're in the current course": {
+        "What subset of students do I have from a pre-requisite course based on performance?": ""
+      }
+    },
+    "Student team peer-assessment results": {
+      "Question": "Do you have results from one or multiple times?",
+      "One time": {
+        "How similarly do team-members see each other?": "",
+        "How am I (as a student) doing versus how others (group members) perceive how I am doing?": "",
+        "Which teams are the trouble teams?": "",
+        "How does a student's self-perception vary from their teammates view of them?": ""
+      },
+      "Multiple times": {
+        "How are student ratings for other students changing over time?": "",
+        "How are students in a team being rated by team members over time?": ""
+      }
+    },
+    "Student demographic data": {
+      "Question": "Do you have any other data to pair this with?",
+      "Student assessment results": {
+        "What is the relationship between being in a non-mutually exclusive group X and a student’s assessment result?": "",
+        "Does being in several underrepresented groups have more of an impact than just being in one?": "",
+        "What is the relationship between being in a mutually exclusive group X and a student’s assessment result?": ""
+      },
+      "Time to completion or graduation records of students": {
+        "Are under-represented groups completing their degree in the same time?": "",
+        "Are under-represented groups graduating at the same proportion as highly represented groups – in terms of graduation/time to completion/performance)?": ""
+      }
+    },
+    "Miscellaneous/Specific data": {
+      "Question": "Do you have any of these data available:",
+      "Types of assessments in courses": {
+        "Where are instructors assessing students?": ""
+      },
+      "Professional skills mapped to courses": {
+        "What courses contribute to development for a particular skill?": "",
+        "Do professional skill taught in successive courses improve with each successive completion?": ""
+      },
+      "Institution benchmarks or measures": {
+        "How is my institution’s financial health and sustainability metrics changing over time?": "",
+        "How has the university/department changed since the last benchmark?": ""
+      },
+      "Demographic and academic data for students in teams": {
+        "Are students in a team similar in a specific quantitative characteristic?": "",
+        "Are students in a team similar in a specific non-quantitative characteristic?": ""
+      }
+    }
+  }
+};
         editor.set(json);
 
         // get json
         var json = editor.get();
     </script>
-    <p>Hover over for visualization examples:</p>
-    <div class="hover_img">
-        <a href="#">Example 1<span><img src="VisEx/1.png" alt="image" width="1000" /></span></a> <a href="#">Example 2<span><img src="VisEx/2.png" alt="image" width="1000" /></span></a> <a href="#">Example 3<span><img src="VisEx/3.png" alt="image" width="1000" /></span></a> <a href="#">Example 4<span><img src="VisEx/4.png" alt="image" width="1000" /></span></a> <a href="#">Example 5<span><img src="VisEx/5.png" alt="image" width="1000" /></span></a> <a href="#">Example 6<span><img src="VisEx/6.png" alt="image" width="1000" /></span></a>
-    </div>
 
-<p>
-    There are three main purposes for visualizations we have found that we have categorized each recommendation into: <br/>
-    <b>Communication</b>: To present information in either a presentation or report. Clearly emphasizing information, with less need for explanation.<br/>
-    <b>Exploration</b>: To find trends, outliers, or other interesting artifacts in the data. Would often be done by a single person. <br/>
-    <b>Discussion</b>: For the purposes of fostering a discussion to achieve deeper goals among a group of end users.<br/>
-    Some visualizaitons can work for multiple purposes. <br/>
-</p>
-<p>This was made as part of a Queen's University research project by Ajay Sivanand. It was made using <a href="https://github.com/josdejong/jsoneditor/">JSON Editor</a> by <a href="https://github.com/josdejong">Jos de Jong</a>.</p>
+    <p>This was made as part of a Queen's University research project by Ajay Sivanand. It was made using <a href="https://github.com/josdejong/jsoneditor/">JSON Editor</a> by <a href="https://github.com/josdejong">Jos de Jong</a>.</p>
+
 </body>
 </html>
